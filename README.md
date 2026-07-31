@@ -43,8 +43,8 @@ xdg-open index.html
 
 # OR just double-click index.html in your file explorer!
 ```
-🤝 Contributing
-Bash
+## 🤝 Contributing
+```Bash
 # 1. Fork it
 # 2. Create your feature branch
 git checkout -b feature/cool-idea
@@ -56,5 +56,6 @@ git commit -m "Add some cool idea"
 git push origin feature/cool-idea
 
 # 5. Open a Pull Request
-📜 License
+```
+### 📜 License
 MIT - Do whatever you want with it.
