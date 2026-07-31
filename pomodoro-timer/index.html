@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraFocus — Serene Pomodoro & Focus Space</title>
+  <meta name="description" content="A calm, aesthetic Pomodoro timer and productivity workspace designed to help you focus, relax, and track your tasks.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-pomodoro">
+  
+  <!-- Background Ambient Lights for Calm Visual Transitions -->
+  <div class="ambient-glow bg-glow-1"></div>
+  <div class="ambient-glow bg-glow-2"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="logo-icon">
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
+          <path d="M12 6V12L16 14" />
+          <path d="M12 2C8 6 8 9 12 11C16 13 16 16 12 20" opacity="0.3" />
+        </svg>
+        <span class="logo-text">AuraFocus</span>
+      </div>
+      <div class="header-actions">
+        <button id="btn-stats" class="icon-button" aria-label="View Statistics">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </button>
+        <button id="btn-settings" class="icon-button" aria-label="Open Settings">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Grid -->
+    <main class="workspace-grid">
+      
+      <!-- Center Area: Timer Card -->
+      <section class="timer-section glass-panel">
+        <!-- Timer Mode Selectors -->
+        <div class="timer-modes">
+          <button id="mode-pomodoro" class="mode-btn active">Focus</button>
+          <button id="mode-short" class="mode-btn">Short Break</button>
+          <button id="mode-long" class="mode-btn">Long Break</button>
+        </div>
+
+        <!-- Timer Circle Visualization -->
+        <div class="timer-visual-wrapper">
+          <svg class="timer-svg" viewBox="0 0 220 220">
+            <circle class="timer-circle-bg" cx="110" cy="110" r="100" />
+            <circle id="timer-progress" class="timer-circle-fg" cx="110" cy="110" r="100" />
+          </svg>
+          <!-- Center Text Display -->
+          <div class="timer-text-container">
+            <span id="timer-display" class="timer-display-time">25:00</span>
+            <span id="timer-state-label" class="timer-state-label">Time to focus</span>
+          </div>
+        </div>
+
+        <!-- Timer Audio/Play Controls -->
+        <div class="timer-controls">
+          <button id="btn-reset" class="control-btn secondary-btn" aria-label="Reset Timer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+            </svg>
+          </button>
+          
+          <button id="btn-toggle" class="control-btn primary-btn" aria-label="Play/Pause Timer">
+            <svg id="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="play-icon">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <svg id="icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="pause-icon hidden">
+              <rect x="6" y="4" width="4" height="16"></rect>
+              <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+          </button>
+
+          <button id="btn-skip" class="control-btn secondary-btn" aria-label="Skip Session">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 4 15 12 5 20 5 4"></polygon>
+              <line x1="19" y1="5" x2="19" y2="19"></line>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- Right Area: Combined Sidebar for Tasks and Ambience -->
+      <div class="sidebar-layout">
+        
+        <!-- Active Task Banner -->
+        <div id="active-task-banner" class="active-task-banner glass-panel hidden">
+          <div class="banner-label">Currently Focusing On</div>
+          <div id="active-task-title" class="banner-title">No task selected</div>
+        </div>
+
+        <!-- Task Card -->
+        <section class="tasks-section glass-panel">
+          <div class="section-header">
+            <h2>Focus Tasks</h2>
+            <span id="task-counter" class="sub-label">0 completed</span>
+          </div>
+
+          <!-- Add Task Input Form -->
+          <form id="task-form" class="task-form">
+            <input type="text" id="task-input" placeholder="What are you working on?" autocomplete="off" required>
+            <div class="form-row">
+              <div class="est-pomo-input">
+                <label for="est-pomodoro">Est. Pomodoros:</label>
+                <div class="number-stepper">
+                  <button type="button" id="step-dec" class="step-btn">-</button>
+                  <input type="number" id="est-pomodoro" value="1" min="1" max="10" readonly>
+                  <button type="button" id="step-inc" class="step-btn">+</button>
+                </div>
+              </div>
+              <button type="submit" class="add-task-btn">
+                <span>Add Task</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Task Lists -->
+          <div class="task-list-wrapper">
+            <ul id="task-list" class="task-list">
+              <!-- Dynamically populated via JS -->
+            </ul>
+          </div>
+        </section>
+
+        <!-- Ambient Soundscapes Panel -->
+        <section class="ambience-section glass-panel">
+          <div class="section-header">
+            <h2>Ambient Noise</h2>
+            <p class="section-desc">Create your background acoustic space</p>
+          </div>
+          
+          <div class="noise-sliders">
+            <!-- Brown Noise -->
+            <div class="noise-control-row">
+              <div class="noise-info">
+                <span class="noise-name">Deep Brown</span>
+                <span class="noise-type">Focus rumble</span>
+              </div>
+              <div class="noise-slider-wrapper">
+                <button class="noise-toggle-btn" data-noise="brown" aria-label="Toggle Brown Noise">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="play-svg"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="pause-svg hidden"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                </button>
+                <input type="range" class="noise-volume" id="volume-brown" min="0" max="1" step="0.05" value="0.5" disabled>
+              </div>
+            </div>
+
+            <!-- Pink Noise -->
+            <div class="noise-control-row">
+              <div class="noise-info">
+                <span class="noise-name">Soft Rain</span>
+                <span class="noise-type">Soothe anxiety</span>
+              </div>
+              <div class="noise-slider-wrapper">
+                <button class="noise-toggle-btn" data-noise="pink" aria-label="Toggle Pink Noise">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="play-svg"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="pause-svg hidden"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                </button>
+                <input type="range" class="noise-volume" id="volume-pink" min="0" max="1" step="0.05" value="0.5" disabled>
+              </div>
+            </div>
+
+            <!-- White Noise -->
+            <div class="noise-control-row">
+              <div class="noise-info">
+                <span class="noise-name">Pure White</span>
+                <span class="noise-type">Block chatter</span>
+              </div>
+              <div class="noise-slider-wrapper">
+                <button class="noise-toggle-btn" data-noise="white" aria-label="Toggle White Noise">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="play-svg"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="pause-svg hidden"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                </button>
+                <input type="range" class="noise-volume" id="volume-white" min="0" max="1" step="0.05" value="0.5" disabled>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="modal-settings" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card glass-panel animate-scale">
+      <div class="modal-header">
+        <h2>Timer Settings</h2>
+        <button class="close-modal-btn" aria-label="Close Settings">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <!-- Timers Setters -->
+        <h3 class="setting-section-title">Durations (Minutes)</h3>
+        <div class="settings-durations-grid">
+          <div class="setting-input-group">
+            <label for="set-pomo">Focus</label>
+            <input type="number" id="set-pomo" min="1" max="90" value="25">
+          </div>
+          <div class="setting-input-group">
+            <label for="set-short">Short Break</label>
+            <input type="number" id="set-short" min="1" max="30" value="5">
+          </div>
+          <div class="setting-input-group">
+            <label for="set-long">Long Break</label>
+            <input type="number" id="set-long" min="1" max="60" value="15">
+          </div>
+        </div>
+
+        <hr class="settings-divider">
+
+        <!-- Autostart toggles -->
+        <h3 class="setting-section-title">Behavior</h3>
+        <div class="setting-toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-name">Auto-start Focus Sessions</span>
+            <span class="toggle-desc">Automatically transition and run Pomodoros</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-auto-pomo">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-name">Auto-start Breaks</span>
+            <span class="toggle-desc">Automatically transition and run breaks</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="set-auto-break">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <hr class="settings-divider">
+
+        <!-- Audio selection -->
+        <h3 class="setting-section-title">Alarm Sound</h3>
+        <div class="setting-input-group">
+          <label for="set-alarm-sound">Select alert tone</label>
+          <select id="set-alarm-sound" class="settings-select">
+            <option value="singing-bowl">Soothing Tibetan Singing Bowl</option>
+            <option value="warm-chime">Melodic Digital Chime</option>
+            <option value="gentle-gong">Soft Brass Gong</option>
+            <option value="none">Muted (Visual Flash Only)</option>
+          </select>
+        </div>
+        
+        <div class="setting-toggle-row" style="margin-top: 15px;">
+          <div class="toggle-info">
+            <span class="toggle-name">Test Alarm Tone</span>
+            <span class="toggle-desc">Listen to a sample of the alarm sound</span>
+          </div>
+          <button id="btn-test-alarm" class="action-btn-small">Play Test</button>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button id="btn-reset-defaults" class="text-btn">Reset Defaults</button>
+        <button id="btn-save-settings" class="action-btn">Apply Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistics Modal -->
+  <div id="modal-stats" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-card glass-panel animate-scale">
+      <div class="modal-header">
+        <h2>Your Progress</h2>
+        <button class="close-modal-btn" aria-label="Close Stats">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <!-- Stats Summary grid -->
+        <div class="stats-overview-grid">
+          <div class="stats-card">
+            <div class="stats-value" id="stats-total-time">0m</div>
+            <div class="stats-label">Total Focus</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-value" id="stats-total-pomo">0</div>
+            <div class="stats-label">Completed sessions</div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-value" id="stats-completed-tasks">0</div>
+            <div class="stats-label">Tasks completed</div>
+          </div>
+        </div>
+
+        <!-- Weekly Progress Bar Chart / Visual -->
+        <h3 class="setting-section-title" style="margin-top: 25px;">Focus History (Last 7 Days)</h3>
+        <div class="stats-chart-container">
+          <div class="chart-bars" id="chart-bars-container">
+            <!-- Populated via JS: 7 vertical bars -->
+          </div>
+        </div>
+
+        <!-- Quote Area -->
+        <div class="quote-card">
+          <p id="stats-quote">"Focus is a muscle, and you are building it one breath at a time."</p>
+          <span id="stats-quote-author">Serene Mind</span>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button id="btn-clear-stats" class="danger-btn text-btn">Clear History</button>
+        <button id="btn-close-stats" class="action-btn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
