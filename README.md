@@ -42,7 +42,7 @@ open index.html
 xdg-open index.html
 
 # OR just double-click index.html in your file explorer!
-
+```
 🤝 Contributing
 Bash
 # 1. Fork it
