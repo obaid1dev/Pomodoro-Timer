@@ -30,10 +30,10 @@ No `npm install` headache required. Just clone and open.
 
 ```bash
 # Clone the repository
-git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
+git clone https://github.com/obaid1dev/Pomodoro-Timer.git
 
 # Move into the directory
-cd YOUR_REPO_NAME
+cd Pomodoro-Timer
 
 # Open index.html in your default browser (macOS)
 open index.html
